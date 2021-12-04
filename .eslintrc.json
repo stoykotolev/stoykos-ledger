@@ -1,0 +1,27 @@
+{
+  "extends": ["airbnb-typescript"],
+  "parserOptions": { "project": ["./tsconfig.json"] },
+  "ignorePatterns": ["src/**/*.css"],
+  "rules": {
+    "semi": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "quotes": "off",
+    "@typescript-eslint/quotes": ["error", "single"],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "off",
+    "jsx-quotes": ["error", "prefer-single"],
+    "implicit-arrow-linebreak": ["error", "below"],
+    "no-shadow": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": false,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "no-param-reassign": ["error", { "props": false }],
+    "react/react-in-jsx-scope": "off"
+  }
+}

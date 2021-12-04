@@ -1,0 +1,24 @@
+@use 'sass:list';
+@use 'sass:math';
+
+//Helpers
+@import './helpers/variables';
+
+// Fonts
+
+//Base
+@import './base/reset';
+@import './base/typography';
+
+// Layout
+@import './layout/sidebar';
+
+html,
+body {
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  font-family: $main-font;
+  height: 100%;
+  background: $base-bg-color;
+  margin-left: 13rem;
+}
