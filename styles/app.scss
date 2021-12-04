@@ -5,7 +5,7 @@
 @import './helpers/variables';
 
 // Fonts
-
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 //Base
 @import './base/reset';
 @import './base/typography';
@@ -18,7 +18,9 @@ body {
   font-size: $base-font-size;
   line-height: $base-line-height;
   font-family: $main-font;
+  color: $base-text;
   height: 100%;
   background: $base-bg-color;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.73));
   margin-left: 13rem;
 }

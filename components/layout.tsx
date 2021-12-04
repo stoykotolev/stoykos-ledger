@@ -1,4 +1,6 @@
 import Head from 'next/head';
+import Image from 'next/image';
+import logo from '../public/img/stoykos-ledger-background.jpg';
 
 type LayoutPropsType = {
   children: React.ReactNode;
@@ -19,7 +21,7 @@ const Layout = ({ children }: LayoutPropsType) =>
         <meta name='twitter:card' content='summary_large_image' />
       </Head>
       <menu className='main-menu'>
-        <h1>About</h1>
+        <Image src={logo} width={115} height={115} alt='The Logo' className='website-logo' />
       </menu>
       <main>{children}</main>
     </>
