@@ -4,19 +4,20 @@ import { PostPreviewType } from '../utils/types';
 export const getSortedPostsData = async () => {
   const allPosts: PostPreviewType[] = posts.map((post) => {
     const paragSnippet = post.firstParagraph.split('', 50);
-    return ({
+    return {
       id: post.id,
       title: post.title,
       date: post.date,
       snippet: paragSnippet.join('').concat('...')
-    });
+    };
   });
 
   // Sort posts by date
   return allPosts.sort((a, b) => {
     if (a > b) {
       return 1;
-    } if (a > b) {
+    }
+    if (a > b) {
       return -1;
     }
     return 0;

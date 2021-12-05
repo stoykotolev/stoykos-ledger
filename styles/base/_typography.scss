@@ -6,7 +6,7 @@ h5,
 h6 {
   font-family: $main-font;
   color: $base-text;
-  line-height: 1.6rem;
+  line-height: 1.6em;
 }
 h1,
 .h1 {
@@ -14,7 +14,6 @@ h1,
 
   &.page-title {
     font-size: rem(40);
-    line-height: 116.7%;
   }
 }
 h2,

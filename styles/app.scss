@@ -12,11 +12,11 @@
 @import './base/typography';
 
 // Layout
-@import './layout/sidebar';
 @import './layout/main';
+@import './layout/aboutMe';
+@import './layout/introSection';
 
 // Components
-@import './layout/aboutMe';
 @import './components/card';
 @import './components/loader';
 
@@ -35,4 +35,21 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, 20em);
   justify-content: center;
+}
+
+header {
+  text-align: center;
+  h1 {
+    font-size: 3em;
+    margin: 1.2em 0;
+  }
+  span {
+    animation: blinker 1s linear infinite;
+  }
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
