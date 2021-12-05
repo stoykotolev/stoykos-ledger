@@ -1,35 +1,72 @@
 import Layout from '../components/layout';
 
-const HomePage = () =>
-  (
+const HomePage = () => {
+  const showModal = ({ target }) => {
+    switch (target.id) {
+      case 'node':
+        console.log('this is node');
+        break;
+      case 'react':
+        console.log('this is react');
+        break;
+      default:
+        break;
+    }
+  };
+  return (
     <Layout>
-      <header id='header-section' className='h1'>
+      <header>
         <h3>Welcome to</h3>
-        <h1 className='page-title'>Stoyko&apos;s Ledger</h1>
+        <h1>Stoyko&apos;s Dossier</h1>
       </header>
-      <section id='intro-section'>
-        <p>
-          {/* <h2>My personal website.</h2> */}
-          It will server as both a continious project and a ledger, where I can
-          keep notes and present how I come up with project ideas, the process in
-          building such a project, deploying it and anything inbetween.
-        </p>
-      </section>
       <section id='about-me'>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, fugit
-          magni porro voluptatum iste totam deserunt voluptas, deleniti a itaque
-          exercitationem. Necessitatibus eveniet repellat recusandae inventore
-          voluptate voluptatem, possimus est!
+          I&apos;m a web-developer, who uses
+          {' '}
+          <span
+            id='node'
+            role='button'
+            tabIndex={0}
+            className='underline'
+            onClick={showModal}
+            aria-hidden='true'
+          >
+            Node.js
+          </span>
+          ,
+          {' '}
+          <span
+            id='react'
+            role='button'
+            tabIndex={-1}
+            className='underline'
+            onClick={showModal}
+            aria-hidden='true'
+          >
+            React.js
+            {' '}
+          </span>
+          {' '}
+          and other tools, to build full-scale projects, based on ideas that pop
+          into my head
+        </p>
+        <div id='tech-stack'>{}</div>
+      </section>
+      <section id='intro-section'>
+        <p>
+          This website will be used as both a continious project and a ledger,
+          where I can keep notes and present how I come up with new project
+          ideas, the development process, deploying it and anything inbetween.
         </p>
       </section>
-      <section id='contact-me'>
-        <p>
-          If you want to share something, are in need of a developer or have an
-          interesting idea in mind, hit me up. I&apos;ll be happy to hear from you.
-        </p>
+      <section id='projects'>
+        <h3>
+          Next entry in:
+          {new Date().getFullYear()}
+        </h3>
       </section>
     </Layout>
   );
+};
 
 export default HomePage;

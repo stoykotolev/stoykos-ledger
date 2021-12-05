@@ -14,6 +14,7 @@
 // Layout
 @import './layout/sidebar';
 @import './layout/main';
+@import './layout//aboutMe';
 
 html,
 body {
@@ -24,5 +25,4 @@ body {
   height: 100%;
   background: $base-bg-color;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
-  margin-left: 13rem;
 }

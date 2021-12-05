@@ -1,16 +1,6 @@
 main {
     @include clearfix;
-
-    .container {
-        align-items: stretch;
-        height: calc(100vh - 87px);  //header height
-    }
-
-    hr {
-        margin: $margin-m 0;
-        border-width: 1px 0 0;
-        border-style: solid;
-        display: block;
-        flex: 0 0 auto;  
-    }
+    width: 60%;
+    margin: auto;
+    padding: 5rem 0;
 }
