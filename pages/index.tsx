@@ -1,26 +1,7 @@
-import { useState } from 'react';
 import Layout from '../components/Layout';
-import Modal from '../components/modal';
 
-const HomePage = () => {
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const showModal = ({ target }) => {
-    switch (target.id) {
-      case 'node':
-        setModalIsOpen(!modalIsOpen);
-        break;
-      case 'react':
-        setModalIsOpen(!modalIsOpen);
-        break;
-      case 'other-tools':
-        setModalIsOpen(!modalIsOpen);
-        break;
-      default:
-        break;
-    }
-  };
-
-  return (
+const HomePage = () =>
+  (
     <Layout>
       <header>
         <h2>Welcome to Stoyko&apos;s Dossier</h2>
@@ -31,11 +12,7 @@ const HomePage = () => {
           {' '}
           <span
             id='node'
-            role='button'
-            tabIndex={0}
             className='underline'
-            onClick={showModal}
-            aria-hidden='true'
           >
             Node.js
           </span>
@@ -43,11 +20,7 @@ const HomePage = () => {
           {' '}
           <span
             id='react'
-            role='button'
-            tabIndex={-1}
             className='underline'
-            onClick={showModal}
-            aria-hidden='true'
           >
             React.js
             {' '}
@@ -57,18 +30,12 @@ const HomePage = () => {
           {' '}
           <span
             id='other-tools'
-            role='button'
-            aria-hidden='true'
             className='underline'
-            onClick={showModal}
           >
             other tools
           </span>
           .
         </p>
-        {modalIsOpen && (
-          <Modal />
-        )}
       </section>
       <section id='intro-section'>
         <p>
@@ -82,9 +49,9 @@ const HomePage = () => {
           Next entry in:
           {new Date().getFullYear()}
         </h3>
+
       </section>
     </Layout>
   );
-};
 
 export default HomePage;
