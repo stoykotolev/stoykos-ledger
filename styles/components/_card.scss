@@ -1,0 +1,21 @@
+.card {
+  padding: 1.1em;
+  margin: 0.5em;
+  border-radius: 10px;
+  max-width: 100%;
+  background-color: $base-bg-color-light;
+  box-shadow: 0 9px 33px rgba(0, 0, 0, 0.07);
+}
+
+.card-text {
+  width: 250px;
+  margin-left: 10px;
+}
+
+.card-description {
+  margin: 10px 0;
+}
+
+.card-link {
+  margin-top: 20px;
+}

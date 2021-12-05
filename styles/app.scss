@@ -14,7 +14,11 @@
 // Layout
 @import './layout/sidebar';
 @import './layout/main';
-@import './layout//aboutMe';
+
+// Components
+@import './layout/aboutMe';
+@import './components/card';
+@import './components/loader';
 
 html,
 body {
@@ -25,4 +29,10 @@ body {
   height: 100%;
   background: $base-bg-color;
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20em);
+  justify-content: center;
 }

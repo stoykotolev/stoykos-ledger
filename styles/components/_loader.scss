@@ -1,0 +1,27 @@
+#loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  .loader-text {
+      font-size: 3rem;
+    span {
+        animation: blinker 1s linear infinite;
+      }
+  }
+  .animation {
+    animation: fadeOut 3s linear;
+  }
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+    100% {
+        opacity: 0;
+    }
+}

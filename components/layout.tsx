@@ -1,13 +1,19 @@
 import Head from 'next/head';
+import React, { useState } from 'react';
+import NextLink from './NextLink';
+import Loader from './Loader';
 
 type LayoutPropsType = {
   children: React.ReactNode;
+  home?: boolean;
 };
 
 const siteTitle: string = 'A ledge of my previous projects and ideas.';
 
-const Layout = ({ children }: LayoutPropsType) =>
-  (
+const Layout = ({ children, home }: LayoutPropsType) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  return (
     <>
       <Head>
         <title>Stoyko&apos;s Dossier</title>
@@ -19,8 +25,26 @@ const Layout = ({ children }: LayoutPropsType) =>
         <meta name='og:title' content={siteTitle} />
         <meta name='twitter:card' content='summary_large_image' />
       </Head>
-      <main className='container'>{children}</main>
+      <div className='container'>
+        {(isLoading && home) ? (
+          <Loader setLoadingState={setIsLoading} />
+        ) : (
+          <>
+            <main>{children}</main>
+            {!home && (
+              <div>
+                <NextLink href='/'>Back to home</NextLink>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </>
   );
+};
+
+Layout.defaultProps = {
+  home: false
+};
 
 export default Layout;

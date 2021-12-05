@@ -1,8 +1,12 @@
+import { GetStaticProps } from 'next';
+import Card from '../components/Card';
 import Layout from '../components/Layout';
+import { getSortedPostsData } from '../lib/posts';
+import { AllPostsDataType } from '../utils/types';
 
-const HomePage = () =>
+const HomePage = ({ allPostsData }:AllPostsDataType) =>
   (
-    <Layout>
+    <Layout home>
       <header>
         <h2>Welcome to Stoyko&apos;s Dossier</h2>
       </header>
@@ -39,19 +43,41 @@ const HomePage = () =>
       </section>
       <section id='intro-section'>
         <p>
-          This website will be used as both a continious project and a ledger,
-          where I can keep notes and present how I come up with new project
-          ideas, the development process, deploying it and anything inbetween.
+          This website will be used as both a continious project and an archive,
+          where I can keep notes and present the process of coming up with new project
+          ideas, their development, deployment and anything inbetween.
         </p>
       </section>
-      <section id='projects'>
+      <section id='blog-posts'>
         <h3>
           Next entry in:
+          {' '}
           {new Date().getFullYear()}
         </h3>
-
+        <section className='posts-grid'>
+          {allPostsData?.map(({
+            id, date, title, snippet
+          }) =>
+            (
+              <Card
+                key={id}
+                id={id}
+                date={date}
+                title={title}
+                snippet={snippet}
+              />
+            ))}
+        </section>
       </section>
     </Layout>
   );
 
+export const getStaticProps: GetStaticProps = async () => {
+  const allPostsData = await getSortedPostsData();
+  return {
+    props: {
+      allPostsData
+    }
+  };
+};
 export default HomePage;
