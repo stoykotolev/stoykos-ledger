@@ -1,18 +1,22 @@
+import { useState } from 'react';
 import Layout from '../components/layout';
+import Modal from '../components/modal';
 
 const HomePage = () => {
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const showModal = ({ target }) => {
     switch (target.id) {
       case 'node':
-        console.log('this is node');
+        setModalIsOpen(!modalIsOpen);
         break;
       case 'react':
-        console.log('this is react');
+        setModalIsOpen(!modalIsOpen);
         break;
       default:
         break;
     }
   };
+
   return (
     <Layout>
       <header>
@@ -50,7 +54,9 @@ const HomePage = () => {
           and other tools, to build full-scale projects, based on ideas that pop
           into my head
         </p>
-        <div id='tech-stack'>{}</div>
+        {modalIsOpen && (
+          <Modal />
+        )}
       </section>
       <section id='intro-section'>
         <p>
