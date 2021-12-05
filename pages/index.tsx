@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import Modal from '../components/modal';
 
 const HomePage = () => {
@@ -12,6 +12,9 @@ const HomePage = () => {
       case 'react':
         setModalIsOpen(!modalIsOpen);
         break;
+      case 'other-tools':
+        setModalIsOpen(!modalIsOpen);
+        break;
       default:
         break;
     }
@@ -20,12 +23,11 @@ const HomePage = () => {
   return (
     <Layout>
       <header>
-        <h3>Welcome to</h3>
-        <h1>Stoyko&apos;s Dossier</h1>
+        <h2>Welcome to Stoyko&apos;s Dossier</h2>
       </header>
       <section id='about-me'>
         <p>
-          I&apos;m a web-developer, who uses
+          I&apos;m a web-developer, who builds full-scale projects, using
           {' '}
           <span
             id='node'
@@ -51,8 +53,18 @@ const HomePage = () => {
             {' '}
           </span>
           {' '}
-          and other tools, to build full-scale projects, based on ideas that pop
-          into my head
+          and
+          {' '}
+          <span
+            id='other-tools'
+            role='button'
+            aria-hidden='true'
+            className='underline'
+            onClick={showModal}
+          >
+            other tools
+          </span>
+          .
         </p>
         {modalIsOpen && (
           <Modal />
