@@ -32,7 +32,7 @@ const Layout = ({ children, home }: LayoutPropsType) => {
           <>
             <main>{children}</main>
             {!home && (
-              <div>
+              <div id='link-back'>
                 <NextLink href='/'>Back to home</NextLink>
               </div>
             )}

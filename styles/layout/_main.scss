@@ -1,6 +1,36 @@
-main {
-    @include clearfix;
+.container {
+  @include clearfix;
+  width: 80%;
+  margin: auto;
+  #link-back {
     width: 80%;
     margin: auto;
-    padding: 5rem 0;
+    text-align: center;
+    a {
+      font-size: 1.2em;
+      display: inline-block;
+      position: relative;
+      text-decoration: none;
+      padding-top: 2em;
+      &:visited {
+        color: $base-text;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: $base-text;
+        transform-origin: bottom left;
+        transition: transform 0.25s ease-out;
+      }
+      &:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
 }

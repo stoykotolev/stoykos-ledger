@@ -10,17 +10,23 @@ const Post = ({ postData }:PostDataType) =>
       <Head>
         <title>{postData.title}</title>
       </Head>
-      <article>
-        <h1>{postData.title}</h1>
-        <p>
-          {postData.firstParagraph}
-        </p>
-        <p>
-          {postData.secondParagraph}
-        </p>
-        <p>
-          {postData.thirdParagraph}
-        </p>
+      <article id='post'>
+        <h1 className='post-title'>{postData.title}</h1>
+        <section id='first-paragraph' className='paragraph'>
+          <p>
+            {postData.firstParagraph}
+          </p>
+        </section>
+        <section id='second-paragraph' className='paragraph'>
+          <p>
+            {postData.secondParagraph}
+          </p>
+        </section>
+        <section id='third-paragraph' className='paragraph'>
+          <p>
+            {postData.thirdParagraph}
+          </p>
+        </section>
       </article>
     </Layout>
   );

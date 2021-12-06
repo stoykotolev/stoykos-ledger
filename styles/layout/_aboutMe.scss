@@ -19,12 +19,12 @@
       bottom: 0;
       left: 0;
       background-color: greenyellow;
-      transform-origin: bottom right;
+      transform-origin: center;
       transition: transform 0.25s ease-out;
     }
     &:hover::after {
       transform: scaleX(1);
-      transform-origin: bottom left;
+      transform-origin: center;
     }
   }
   #react {
@@ -40,12 +40,12 @@
       bottom: 0;
       left: 0;
       background-color: lightskyblue;
-      transform-origin: bottom right;
+      transform-origin: center;
       transition: transform 0.25s ease-out;
     }
     &:hover::after {
       transform: scaleX(1);
-      transform-origin: bottom left;
+      transform-origin: center;
     }
   }
   #other-tools {
@@ -61,12 +61,12 @@
       bottom: 0;
       left: 0;
       background-color: yellow;
-      transform-origin: bottom right;
+      transform-origin: center;
       transition: transform 0.25s ease-out;
     }
     &:hover::after {
       transform: scaleX(1);
-      transform-origin: bottom left;
+      transform-origin: center;
     }
   }
 }

@@ -10,12 +10,51 @@
 .card-text {
   width: 250px;
   margin-left: 10px;
+
+  .card-title {
+    margin-top: 0.5em;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .card-date {
+    font-weight: 400;
+    font-size: 0.8em;
+    margin: 0.3em 0;
+  }
+
+  .card-description {
+    margin: 10px 0;
+    font-size: 1.2em;
+  }
+  a {
+    font-size: 1.5em;
+    display: inline-block;
+    position: relative;
+    margin-top: 20px;
+    text-decoration: none;
+    &:visited {
+      color: $base-text;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1px;
+      bottom: 0;
+      left: 0;
+      background-color: $base-text;
+      transform-origin: bottom left;
+      transition: transform 0.25s ease-out;
+    }
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+  }
 }
 
-.card-description {
-  margin: 10px 0;
-}
 
-.card-link {
-  margin-top: 20px;
-}

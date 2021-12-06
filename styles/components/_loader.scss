@@ -5,6 +5,8 @@
   height: 100vh;
   .loader-text {
       font-size: 3rem;
+      text-align: center;
+      line-height: 1.5em;
     span {
         animation: blinker 1s linear infinite;
       }

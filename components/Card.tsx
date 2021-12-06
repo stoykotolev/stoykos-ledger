@@ -8,7 +8,7 @@ const Card = ({
     <div className='card'>
       <div className='card-text'>
         <h2 className='card-title'>{title}</h2>
-        <p>{date}</p>
+        <p className='card-date'>{date}</p>
         <p className='card-description'>
           <span>{snippet}</span>
         </p>
