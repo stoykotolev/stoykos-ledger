@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { GetStaticProps } from 'next';
-import Card from '../components/Card';
-import Layout from '../components/Layout';
+import Card from '../components/card';
+import Layout from '../components/layout';
 import { getSortedPostsData } from '../lib/posts';
 import { AllPostsDataType } from '../utils/types';
 
