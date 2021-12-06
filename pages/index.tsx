@@ -5,8 +5,10 @@ import Layout from '../components/Layout';
 import { getSortedPostsData } from '../lib/posts';
 import { AllPostsDataType } from '../utils/types';
 
-const HomePage = ({ allPostsData }: AllPostsDataType) =>
-  (
+const HomePage = ({ allPostsData }: AllPostsDataType) => {
+  const postDate = moment(allPostsData[0].date).add(14, 'days');
+
+  return (
     <Layout home>
       <header>
         <h1>
@@ -45,9 +47,9 @@ const HomePage = ({ allPostsData }: AllPostsDataType) =>
       </section>
       <section id='blog-posts'>
         <h3>
-          Next entry in:
+          Next entry
           {' '}
-          {moment(allPostsData[0].date).fromNow()}
+          {postDate.fromNow()}
         </h3>
         <section className='posts-grid'>
           {allPostsData?.map(({
@@ -66,6 +68,7 @@ const HomePage = ({ allPostsData }: AllPostsDataType) =>
       </section>
     </Layout>
   );
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = await getSortedPostsData();

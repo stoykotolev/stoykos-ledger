@@ -22,6 +22,7 @@ const Loader = ({ setLoadingState }:LoaderType) => {
       setLoaderText(text.slice(0, loaderText.length + 1));
     }, 200);
   }, [loaderText]);
+
   return (
     <div id='loader-container'>
       <div className={`loader-text ${elementClass}`}>
