@@ -1,5 +1,5 @@
 import { PostPreviewType } from '../utils/types';
-import NextLink from './NextLink';
+import NextLink from './next-link';
 
 const Card = ({
   title, date, id, snippet
