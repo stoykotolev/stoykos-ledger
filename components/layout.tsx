@@ -29,20 +29,19 @@ const Layout = ({ children, home }: LayoutPropsType) => {
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
               page_path: window.location.pathname,
             });
-          `,
+          `
           }}
         />
         <title>Stoyko&apos;s Dossier</title>
-        <link rel='icon' href='/favicon.ico' />
         <meta
           name='description'
-          content='Learn how to build a personal website using Next.js'
+          content='My personal website, which will server as both a portfolio and a dossier, where I can store and show how I come up with project ideas, the process in building a project and deploying it and anything inbetween.'
         />
         <meta name='og:title' content={siteTitle} />
         <meta name='twitter:card' content='summary_large_image' />
       </Head>
       <div className='container'>
-        {(isLoading && home) ? (
+        {isLoading && home ? (
           <Loader setLoadingState={setIsLoading} />
         ) : (
           <>
