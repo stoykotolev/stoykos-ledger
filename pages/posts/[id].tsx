@@ -27,6 +27,21 @@ const Post = ({ postData }:PostDataType) =>
             {postData.thirdParagraph}
           </p>
         </section>
+        <section id='fourth-paragraph' className='paragraph'>
+          <p>
+            {postData.fourthParagraph}
+          </p>
+        </section>
+        <section id='fifth-paragraph' className='paragraph'>
+          <p>
+            {postData.fifthParagraph}
+          </p>
+        </section>
+        <section id='epilogue' className='paragraph'>
+          <p>
+            {postData.epilogue}
+          </p>
+        </section>
       </article>
     </Layout>
   );
