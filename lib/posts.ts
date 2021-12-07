@@ -3,7 +3,7 @@ import { PostPreviewType } from '../utils/types';
 
 export const getSortedPostsData = async () => {
   const allPosts: PostPreviewType[] = posts.map((post) => {
-    const paragSnippet = post.firstParagraph.split('', 50);
+    const paragSnippet = post.firstParagraph.split('', 68);
     return {
       id: post.id,
       title: post.title,
