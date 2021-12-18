@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
-import Loader from './loader';
-import NextLink from './next-link';
+import Loader from './Loader';
+import NextLink from './NextLink';
 
 type LayoutPropsType = {
   children: React.ReactNode;
