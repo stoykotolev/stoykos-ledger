@@ -1,13 +1,7 @@
 export type PostType = {
-  id: string;
-  title: string;
-  date: string;
-  firstParagraph?: string;
-  secondParagraph?: string;
-  thirdParagraph?: string;
-  fourthParagraph?: string;
-  fifthParagraph?: string;
-  epilogue?: string;
+  title: string
+  date: string
+  contentHtml: string
 };
 
 export type PostPreviewType = {
