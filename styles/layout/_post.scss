@@ -9,14 +9,12 @@
   }
 
   .paragraph {
-      width: 80%;
-      font-size: 1.2em;
-      margin: auto;
-      padding: 1.5em 0;
-  }
-
-  #epilogue {
-    margin-top: 1em;
-    text-align: center;
+    width: 80%;
+    font-size: 1.2em;
+    margin: auto;
+    padding: 1.5em 0;
+    p {
+      margin: 1.5em 0;
+    }
   }
 }

@@ -24,7 +24,10 @@ const Post = ({ postData }: PostDataType) =>
       </Head>
       <article id='post'>
         <h1 className='post-title'>{postData.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <div
+          className='paragraph'
+          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+        />
       </article>
     </Layout>
   );
