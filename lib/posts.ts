@@ -3,13 +3,21 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import moment from 'moment';
+
+interface IPostData {
+  id: string;
+  title: string;
+  date: string;
+  snippet: string;
+}
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
 export const getSortedPostsData = () => {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
+  const allPostsData: IPostData[] = fileNames.map((fileName) => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, '');
 
@@ -24,19 +32,16 @@ export const getSortedPostsData = () => {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      title: matterResult.data.title,
+      date: matterResult.data.date,
       snippet: postSnippet.concat('...')
     };
   });
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a > b) {
-      return 1;
-    } if (a > b) {
-      return -1;
-    }
-    return 0;
-  });
+  const sortedDates = allPostsData.sort((a, b) =>
+    moment(b.date).diff(moment(a.date)));
+
+  return sortedDates;
 };
 
 export const getAllPostIds = () => {
@@ -67,6 +72,6 @@ export const getPostData = async (id: string) => {
   return {
     id,
     contentHtml,
-    ...(matterResult.data as { date: string; title: string }),
+    ...(matterResult.data as { date: string; title: string })
   };
 };
