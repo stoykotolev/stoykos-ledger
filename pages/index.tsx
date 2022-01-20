@@ -52,7 +52,7 @@ const HomePage = ({ allPostsData }: AllPostsDataType) => {
           {postDate.fromNow()}
         </h3>
         <section className='posts-grid'>
-          {allPostsData.length > 0 && allPostsData?.map(({
+          {allPostsData.length && allPostsData?.map(({
             id, date, title, snippet
           }) =>
             (
