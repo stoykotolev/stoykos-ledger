@@ -1,6 +1,6 @@
 ---
-  title: 'Entry [3]'
-  date: '2022-01-20'
+  title: 'Entry [4]'
+  date: '2022-02-02'
 ---
 
 The past 2 weeks were mainly authentication / authorization and mobile development driven.
