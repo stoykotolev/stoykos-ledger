@@ -17,7 +17,7 @@
       margin: 1.5em 0;
       a {
         color: $base-link-color;
-        &.visited {
+        &:visited {
           color: $link-visited-color;
         }
       }
