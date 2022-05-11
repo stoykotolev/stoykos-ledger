@@ -3,7 +3,7 @@ import NextLink from './NextLink';
 
 const Card = ({
   title, date, id, snippet
-}:PostPreviewType) =>
+}: PostPreviewType) =>
   (
     <div className='card'>
       <div className='card-text'>
@@ -12,9 +12,7 @@ const Card = ({
         <p className='card-description'>
           <span>{snippet}</span>
         </p>
-        <NextLink href={`posts/${id}`}>
-          Read More
-        </NextLink>
+        <NextLink href={`posts/${id}`}>Read More</NextLink>
       </div>
     </div>
   );

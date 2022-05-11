@@ -9,7 +9,7 @@ const HomePage = ({ allPostsData }: AllPostsDataType) => {
   const postDate = moment(allPostsData[0].date).add(14, 'days');
 
   return (
-    <Layout>
+    <Layout home>
       <header>
         <h1>
           Welcome to Stoyko&apos;s Dossier
@@ -79,4 +79,5 @@ export const getStaticProps: GetStaticProps = () => {
     },
   };
 };
+
 export default HomePage;

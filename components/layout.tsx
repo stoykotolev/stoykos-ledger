@@ -19,8 +19,8 @@ const Layout = ({ children, home = false }: LayoutPropsType) => {
       if (document.cookie.indexOf('visited=true') === -1) {
         const cookieExpires = moment().add(4, 'hours').utc().format();
         document.cookie = `visited=true;expires=${cookieExpires}`;
+        setIsLoading(true);
       }
-      setIsLoading(true);
     };
     showLoader();
   }, []);

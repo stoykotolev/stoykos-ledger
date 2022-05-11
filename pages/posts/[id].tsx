@@ -48,4 +48,5 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: false,
   };
 };
+
 export default Post;
