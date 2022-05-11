@@ -1,5 +1,6 @@
+import moment from 'moment';
 import Head from 'next/head';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Loader from './Loader';
 import NextLink from './NextLink';
 
@@ -10,8 +11,19 @@ type LayoutPropsType = {
 
 const siteTitle: string = 'A ledge of my previous projects and ideas.';
 
-const Layout = ({ children, home }: LayoutPropsType) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const Layout = ({ children, home = false }: LayoutPropsType) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    const showLoader = () => {
+      if (document.cookie.indexOf('visited=true') === -1) {
+        const cookieExpires = moment().add(4, 'hours').utc().format();
+        document.cookie = `visited=true;expires=${cookieExpires}`;
+      }
+      setIsLoading(true);
+    };
+    showLoader();
+  }, []);
 
   return (
     <>
@@ -29,7 +41,7 @@ const Layout = ({ children, home }: LayoutPropsType) => {
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
               page_path: window.location.pathname,
             });
-          `
+          `,
           }}
         />
         <title>Stoyko&apos;s Dossier</title>
@@ -41,7 +53,7 @@ const Layout = ({ children, home }: LayoutPropsType) => {
         <meta name='twitter:card' content='summary_large_image' />
       </Head>
       <div className='container'>
-        {isLoading && home ? (
+        {isLoading ? (
           <Loader setLoadingState={setIsLoading} />
         ) : (
           <>
@@ -56,10 +68,6 @@ const Layout = ({ children, home }: LayoutPropsType) => {
       </div>
     </>
   );
-};
-
-Layout.defaultProps = {
-  home: false
 };
 
 export default Layout;
