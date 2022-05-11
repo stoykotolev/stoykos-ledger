@@ -9,7 +9,7 @@ const HomePage = ({ allPostsData }: AllPostsDataType) => {
   const postDate = moment(allPostsData[0].date).add(14, 'days');
 
   return (
-    <Layout home>
+    <Layout>
       <header>
         <h1>
           Welcome to Stoyko&apos;s Dossier
@@ -52,30 +52,31 @@ const HomePage = ({ allPostsData }: AllPostsDataType) => {
           {postDate.fromNow()}
         </h3>
         <section className='posts-grid'>
-          {allPostsData.length && allPostsData?.map(({
-            id, date, title, snippet
-          }) =>
-            (
-              <Card
-                key={id}
-                id={id}
-                date={date}
-                title={title}
-                snippet={snippet}
-              />
-            ))}
+          {allPostsData.length
+            && allPostsData?.map(({
+              id, date, title, snippet
+            }) =>
+              (
+                <Card
+                  key={id}
+                  id={id}
+                  date={date}
+                  title={title}
+                  snippet={snippet}
+                />
+              ))}
         </section>
       </section>
     </Layout>
   );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = await getSortedPostsData();
+export const getStaticProps: GetStaticProps = () => {
+  const allPostsData = getSortedPostsData();
   return {
     props: {
-      allPostsData
-    }
+      allPostsData,
+    },
   };
 };
 export default HomePage;
