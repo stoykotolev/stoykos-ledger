@@ -1,6 +1,6 @@
-import moment from 'moment';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
+import { getCookie, setCookie } from '../lib/cookiesGlobalFunctions';
 import Loader from './Loader';
 import NextLink from './NextLink';
 
@@ -16,10 +16,10 @@ const Layout = ({ children, home = false }: LayoutPropsType) => {
 
   useEffect(() => {
     const showLoader = () => {
-      if (document.cookie.indexOf('visited=true') === -1) {
-        const cookieExpires = moment().add(4, 'hours').utc().format();
-        document.cookie = `visited=true;expires=${cookieExpires}`;
+      const cookie = getCookie('visited');
+      if (!cookie) {
         setIsLoading(true);
+        setCookie('visited', 'true');
       }
     };
     showLoader();
