@@ -13,7 +13,7 @@ That's how I ended up writing this, again, _VERY_ basic Pythong script, that, ba
 
 Nothing fancing, but it works.
 
-Here is the repo if you'd like to check it out - [https://github.com/stoykotolev/youtube-playlist-checker
+Here is the repo if you'd like to check it out - [https://github.com/stoykotolev/youtube-playlist-checker]
 
 I decided to go the OOP just because I wanted to dip my toes in it. But the main functions of the script are basically:
 
