@@ -7,13 +7,13 @@ Been a minute I guess....
 
 Got into some _VERY_ basic Python scripting.
 
-After catching myself going to LTT's([Linus Tech Tips](https://www.youtube.com/c/LinusTechTips)) YouTube account to watch videos from his Smart Home creation [playlist](https://www.youtube.com/playlist?list=PL8mG-RkN2uTzgyA8zzE8vRB3_ZXQfuFRz) I decided to build something that will help with tracking this.
+After catching myself going to [LTT's](https://www.youtube.com/c/LinusTechTips) YouTube account to watch videos from his Smart Home creation [playlist](https://www.youtube.com/playlist?list=PL8mG-RkN2uTzgyA8zzE8vRB3_ZXQfuFRz) I decided to build something that will help with tracking this.
 
 That's how I ended up writing this, again, _VERY_ basic Pythong script, that, basically, sends a request via the YT API and checks if the current playlist video count is more than the previous one. If that happens, an email is sent.
 
 Nothing fancing, but it works.
 
-Here is the repo if you'd like to check it out - [https://github.com/stoykotolev/youtube-playlist-checker]
+Here is the repo if you'd like to check it out - [GitHub Repo](https://github.com/stoykotolev/youtube-playlist-checker)
 
 I decided to go the OOP just because I wanted to dip my toes in it. But the main functions of the script are basically:
 
@@ -88,4 +88,4 @@ Currently, I have it so that it sends an receives it on the same email, to avoid
 
 For the future, I _might_ set it up so that it then also requests the n number of videos since the last check and provides their URLs in the email.
 
-But I'll see. Currently feeling like it's time for a redesign for the website. 
+But I'll see. Currently feeling like it's time for a redesign for the website.
