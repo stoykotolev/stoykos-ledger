@@ -27,5 +27,6 @@
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.9.3",
     "wrangler": "^3.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.31.0"
 }
