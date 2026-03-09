@@ -1,5 +1,7 @@
-# folders
 node_modules/
-build
-.vercel
-.env.local
+dist/
+.astro/
+.wrangler/
+.env
+.env.*
+!.env.example
