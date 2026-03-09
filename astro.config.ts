@@ -1,11 +1,11 @@
-import { defineConfig } from 'astro/config'
-import cloudflare from '@astrojs/cloudflare'
-import sitemap from '@astrojs/sitemap'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "astro/config";
+import cloudflare from "@astrojs/cloudflare";
+import sitemap from "@astrojs/sitemap";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: 'https://stoykotolev.com',
-  output: 'static',
+  site: "https://stoykotolev.com",
+  output: "static",
   adapter: cloudflare(),
   integrations: [sitemap()],
   vite: {
@@ -14,10 +14,10 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       themes: {
-        light: 'github-light',
-        dark: 'github-dark',
+        light: "github-light",
+        dark: "github-dark",
       },
       wrap: true,
     },
   },
-})
+});
