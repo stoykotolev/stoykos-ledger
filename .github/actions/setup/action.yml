@@ -1,20 +1,14 @@
-name: Setup
-description: Checkout, install pnpm, setup Node, and install dependencies
+name: "Setup and install"
+description: "Common setup steps for Actions"
 
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
-
     - uses: pnpm/action-setup@v4
-      with:
-        version: latest
-
     - uses: actions/setup-node@v4
       with:
-        node-version: 24
-        cache: pnpm
+        node-version: 20
+        cache: "pnpm"
 
-    - name: Install dependencies
-      shell: bash
-      run: pnpm install --frozen-lockfile
+    - shell: bash
+      run: pnpm install
