@@ -6,51 +6,82 @@ import { formatDate, readingTime } from "../lib/utils";
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+
+const tagGradients: Record<string, string> = {};
+const gradients = [
+  "from-blue-500/20 to-indigo-500/10 dark:from-blue-500/15 dark:to-indigo-500/5",
+  "from-emerald-500/20 to-teal-500/10 dark:from-emerald-500/15 dark:to-teal-500/5",
+  "from-violet-500/20 to-purple-500/10 dark:from-violet-500/15 dark:to-purple-500/5",
+  "from-amber-500/20 to-orange-500/10 dark:from-amber-500/15 dark:to-orange-500/5",
+  "from-rose-500/20 to-pink-500/10 dark:from-rose-500/15 dark:to-pink-500/5",
+  "from-cyan-500/20 to-sky-500/10 dark:from-cyan-500/15 dark:to-sky-500/5",
+];
+let gi = 0;
+
+posts.forEach((post) => {
+  const t = post.data.tags[0];
+  if (t && !tagGradients[t]) {
+    tagGradients[t] = gradients[gi % gradients.length];
+    gi++;
+  }
+});
 ---
 
 <Base title="stoykotolev.com — Technical Blog">
   <section>
-    <div class="flex flex-col gap-2">
-      <h1 class="text-3xl font-bold tracking-tight mb-2">Hi, I'm Stoyko</h1>
-      <p class="text-gray-500 dark:text-gray-400">
+    <div class="mb-14">
+      <h1 class="text-3xl font-bold tracking-tight mb-3">Hi, I'm Stoyko</h1>
+      <p class="text-gray-500 dark:text-gray-400 max-w-xl">
         Writing about software engineering, tools, and things I find
-        interesting.
-      </p>
-      <p class="text-gray-500 dark:text-gray-400 mb-12">
-        This website will be used as both a continious project and an archive,
-        where I can keep notes and present the process of coming up with new
-        project ideas, their development, deployment and anything inbetween.
+        interesting. This site is both a continuous project and an archive.
       </p>
     </div>
-    <div class="space-y-10">
-      {
-        posts.map((post) => (
-          <article class="group">
-            <a href={`/blog/${post.slug}`} class="block">
-              <div class="flex flex-wrap gap-2 mb-2">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {posts.map((post, i) => {
+        const gradient = tagGradients[post.data.tags[0]] ?? gradients[0];
+        const isWide = i === 0;
+        return (
+          <a
+            href={`/blog/${post.slug}`}
+            class:list={[
+              "group flex flex-col rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-lg dark:hover:shadow-gray-900/40 transition-all duration-200",
+              isWide && "sm:col-span-2",
+            ]}
+          >
+            <div class={`bg-gradient-to-br ${gradient} ${isWide ? "p-6" : "p-5"}`}>
+              <div class="flex flex-wrap gap-1.5 mb-3">
                 {post.data.tags.map((tag) => (
-                  <span class="text-xs text-blue-600 dark:text-blue-400">
-                    #{tag}
+                  <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-white/60 dark:bg-gray-950/40 text-gray-700 dark:text-gray-300">
+                    {tag}
                   </span>
                 ))}
               </div>
-              <h2 class="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">
+              <h3 class:list={[
+                "font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors",
+                isWide ? "text-xl" : "text-base",
+              ]}>
                 {post.data.title}
-              </h2>
-              <p class="text-gray-500 dark:text-gray-400 text-sm mb-2">
+              </h3>
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <p class:list={[
+                "text-gray-500 dark:text-gray-400 mb-3",
+                isWide ? "text-base" : "text-sm line-clamp-2",
+              ]}>
                 {post.data.description}
               </p>
-              <p class="text-xs text-gray-400 dark:text-gray-500">
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-auto">
                 <time datetime={post.data.date.toISOString()}>
                   {formatDate(post.data.date)}
                 </time>
                 {" · "}
                 {readingTime(post.body)} min read
               </p>
-            </a>
-          </article>
-        ))
-      }
+            </div>
+          </a>
+        );
+      })}
     </div>
   </section>
 </Base>
