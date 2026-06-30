@@ -1,105 +1,90 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
-import { formatDate, readingTime } from "../lib/utils";
+import { readingTime } from "../lib/utils";
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
-const tagGradients: Record<string, string> = {};
-const gradients = [
-  "from-blue-500/20 to-indigo-500/10 dark:from-blue-500/15 dark:to-indigo-500/5",
-  "from-emerald-500/20 to-teal-500/10 dark:from-emerald-500/15 dark:to-teal-500/5",
-  "from-violet-500/20 to-purple-500/10 dark:from-violet-500/15 dark:to-purple-500/5",
-  "from-amber-500/20 to-orange-500/10 dark:from-amber-500/15 dark:to-orange-500/5",
-  "from-rose-500/20 to-pink-500/10 dark:from-rose-500/15 dark:to-pink-500/5",
-  "from-cyan-500/20 to-sky-500/10 dark:from-cyan-500/15 dark:to-sky-500/5",
-];
-let gi = 0;
-
-posts.forEach((post) => {
-  const t = post.data.tags[0];
-  if (t && !tagGradients[t]) {
-    tagGradients[t] = gradients[gi % gradients.length];
-    gi++;
-  }
-});
+const id = (title: string) => {
+  const m = title.match(/(\d+)/);
+  return (m ? m[1] : "0").padStart(4, "0");
+};
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+const clip = (s: string, n: number) =>
+  s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s;
 ---
 
-<Base title="stoykotolev.com — Technical Blog">
-  <section>
-    <div class="mb-14">
-      <h1 class="text-3xl font-bold tracking-tight mb-3">Hi, I'm Stoyko</h1>
-      <p class="text-gray-500 dark:text-gray-400 max-w-xl">
-      Writing about software engineering, tools, and things I find interesting.
-      This site is both a continuous project and an archive of all things I've found interesting enough to want to write down.
-      </p>
-      <p class="text-gray-500 dark:text-gray-400 max-w-xl mt-2">
-        Find me on <a href="https://github.com/stoykotolev" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-gray-900 dark:text-gray-100 underline decoration-gray-300 dark:decoration-gray-600 underline-offset-2 hover:decoration-blue-500 dark:hover:decoration-blue-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="inline-block"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>GitHub</a> or send me an <button id="copy-email" class="inline-flex items-center gap-1 text-gray-900 dark:text-gray-100 underline decoration-gray-300 dark:decoration-gray-600 underline-offset-2 hover:decoration-blue-500 dark:hover:decoration-blue-400 transition-colors cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span id="copy-email-label">email</span></button>.
-      </p>
-    </div>
+<Base title="stoykotolev.com — a technical ledger">
+  <pre class="lg-banner">┌─ THE LEDGER ─────────────────────────────────┐
+│  an append-only log of things worth keeping  │
+└──────────────────────────────────────────────┘</pre>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      {posts.map((post, i) => {
-        const gradient = tagGradients[post.data.tags[0]] ?? gradients[0];
-        const isWide = i === 0;
+  <p class="lg-intro">
+    Hi, I'm Stoyko. A running log of software I'm building, tools I'm
+    sharpening, and ideas I find worth keeping — part continuous project, part
+    archive. A new entry lands every couple of weeks. Find me on <a
+      href="https://github.com/stoykotolev"
+      target="_blank"
+      rel="noopener noreferrer">GitHub</a
+    > or send me an <button id="copy-email" type="button"
+      ><span id="copy-email-label">email</span></button
+    >.
+  </p>
+
+  <div class="lg-prompt">
+    <span class="lg-user">stoyko@ledger</span>:<span class="lg-cwd"
+      >~/ledger</span
+    >$ cat ./entries --tail<span class="lg-caret" aria-hidden="true"></span>
+  </div>
+
+  <div class="lg-cols" aria-hidden="true">
+    <span>ENTRY</span><span>DATE</span><span>TITLE</span><span class="col-read"
+      >READ</span
+    >
+  </div>
+
+  <ol class="lg-list">
+    {
+      posts.map((post) => {
+        const tags = post.data.tags;
+        const shown = tags.slice(0, 4).join(" · ");
+        const extra = tags.length > 4 ? ` +${tags.length - 4}` : "";
         return (
-          <a
-            href={`/blog/${post.slug}`}
-            class:list={[
-              "group flex flex-col rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-lg dark:hover:shadow-gray-900/40 transition-all duration-200",
-              isWide && "sm:col-span-2",
-            ]}
-          >
-            <div class={`bg-gradient-to-br ${gradient} ${isWide ? "p-6" : "p-5"}`}>
-              <div class="flex flex-wrap gap-1.5 mb-3">
-                {post.data.tags.map((tag) => (
-                  <span class="text-xs font-medium px-2 py-0.5 rounded-full bg-white/60 dark:bg-gray-950/40 text-gray-700 dark:text-gray-300">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h3 class:list={[
-                "font-bold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors",
-                isWide ? "text-xl" : "text-base",
-              ]}>
-                {post.data.title}
-              </h3>
-            </div>
-            <div class="p-4 flex flex-col flex-1">
-              <p class:list={[
-                "text-gray-500 dark:text-gray-400 mb-3",
-                isWide ? "text-base" : "text-sm line-clamp-2",
-              ]}>
-                {post.data.description}
-              </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400 mt-auto">
-                <time datetime={post.data.date.toISOString()}>
-                  {formatDate(post.data.date)}
-                </time>
-                {" · "}
-                {readingTime(post.body)} min read
-              </p>
-            </div>
-          </a>
+          <li>
+            <a href={`/blog/${post.slug}`} class="lg-line">
+              <span class="lg-id">#{id(post.data.title)}</span>
+              <span class="lg-dt">{iso(post.data.date)}</span>
+              <span class="lg-main-cell">
+                <span class="lg-t">{clip(post.data.description, 58)}</span>
+                <span class="lg-dots" />
+                <span class="lg-read">{readingTime(post.body)}m</span>
+              </span>
+              <span class="lg-tags">
+                {shown}
+                {extra}
+              </span>
+            </a>
+          </li>
         );
-      })}
-    </div>
-  </section>
+      })
+    }
+  </ol>
 
   <script>
     const btn = document.getElementById("copy-email");
     const label = document.getElementById("copy-email-label");
     const parts = ["stoyko", "stoykotolev", "com"];
     const addr = `${parts[0]}@${parts[1]}.${parts[2]}`;
-
     btn?.addEventListener("click", async () => {
-      await navigator.clipboard.writeText(addr);
-      if (label) {
-        label.textContent = "copied!";
-        setTimeout(() => (label.textContent = "email"), 2000);
-      }
+      try {
+        await navigator.clipboard.writeText(addr);
+        if (label) {
+          label.textContent = "copied!";
+          setTimeout(() => (label.textContent = "email"), 2000);
+        }
+      } catch {}
     });
   </script>
 </Base>

@@ -1,79 +1,109 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import { readingTime } from "../lib/utils";
+
+const idOf = (t: string) => (t.match(/(\d+)/)?.[1] ?? "0").padStart(4, "0");
 
 const posts = (await getCollection("posts", ({ data }) => !data.draft))
-	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-	.map((p) => ({
-		slug: p.slug,
-		title: p.data.title,
-		description: p.data.description,
-		tags: p.data.tags,
-		date: p.data.date.toISOString(),
-		body: p.body,
-	}));
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((p) => ({
+    slug: p.slug,
+    id: idOf(p.data.title),
+    title: p.data.title,
+    description: p.data.description,
+    tags: p.data.tags,
+    date: p.data.date.toISOString().slice(0, 10),
+    read: readingTime(p.body),
+    body: p.body,
+  }));
+
+// Escape "<" so the JSON island can't break out of the <script> tag.
+const dataJson = JSON.stringify(posts).replace(/</g, "\\u003c");
 ---
 
 <Base title="Search — stoykotolev.com">
-	<h1 class="mb-8 text-3xl font-bold tracking-tight">Search</h1>
+  <h1 class="lg-h1">Search</h1>
+  <p class="lg-sub">grep the ledger</p>
 
-	<input
-		id="search-input"
-		type="search"
-		placeholder="Search posts…"
-		class="mb-8 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
-	/>
+  <div class="lg-prompt">
+    <span class="lg-user">stoyko@ledger</span>:<span class="lg-cwd"
+      >~/ledger</span
+    >$ grep -i
+  </div>
 
-	<div id="results" class="space-y-8"></div>
+  <input
+    id="search-input"
+    type="search"
+    placeholder="type to search entries…"
+    autocomplete="off"
+    class="lg-input"
+  />
 
-	<script is:inline define:vars={{ posts }}>
-		async function initSearch() {
-			const { default: Fuse } =
-				await import("/node_modules/fuse.js/dist/fuse.mjs");
+  <div id="search-cols" class="lg-cols" aria-hidden="true" style="display:none">
+    <span>ENTRY</span><span>DATE</span><span>TITLE</span><span class="col-read"
+      >READ</span
+    >
+  </div>
+  <ol id="results" class="lg-list"></ol>
+  <p id="results-empty" class="lg-empty"></p>
 
-			const fuse = new Fuse(posts, {
-				keys: ["title", "description", "tags", "body"],
-				threshold: 0.4,
-				minMatchCharLength: 2,
-			});
+  <script type="application/json" id="search-data" set:html={dataJson}></script>
+  <script>
+    import Fuse from "fuse.js";
 
-			const input = document.getElementById("search-input");
-			const resultsEl = document.getElementById("results");
+    const dataEl = document.getElementById("search-data");
+    const posts = JSON.parse(dataEl?.textContent || "[]");
+    const fuse = new Fuse(posts, {
+      keys: ["title", "description", "tags", "body"],
+      threshold: 0.4,
+      minMatchCharLength: 2,
+    });
 
-			function render(items) {
-				if (!resultsEl) return;
-				if (!items.length) {
-					resultsEl.innerHTML =
-						'<p class="text-gray-500 dark:text-gray-400 text-sm">No results found.</p>';
-					return;
-				}
-				resultsEl.innerHTML = items
-					.map(
-						({ item: p }) => `
-          <article class="group">
-            <a href="/blog/${p.slug}" class="block">
-              <div class="flex flex-wrap gap-2 mb-1">
-                ${p.tags.map((t) => `<span class="text-xs text-blue-600 dark:text-blue-400">#${t}</span>`).join("")}
-              </div>
-              <h2 class="text-xl font-semibold group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-1">${p.title}</h2>
-              <p class="text-gray-500 dark:text-gray-400 text-sm">${p.description}</p>
-            </a>
-          </article>
-        `,
-					)
-					.join("");
-			}
+    const input = document.getElementById("search-input") as HTMLInputElement | null;
+    const cols = document.getElementById("search-cols");
+    const results = document.getElementById("results");
+    const empty = document.getElementById("results-empty");
 
-			input?.addEventListener("input", (e) => {
-				const q = e.target.value.trim();
-				if (!q) {
-					resultsEl.innerHTML = "";
-					return;
-				}
-				render(fuse.search(q).slice(0, 10));
-			});
-		}
+    const clip = (s: string, n: number) =>
+      s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s;
 
-		initSearch();
-	</script>
+    function rowsHtml(items: any[]) {
+      return items
+        .map(
+          ({ item: p }) => `
+        <li><a href="/blog/${p.slug}" class="lg-line">
+          <span class="lg-id">#${p.id}</span>
+          <span class="lg-dt">${p.date}</span>
+          <span class="lg-main-cell"><span class="lg-t">${clip(p.description, 58)}</span><span class="lg-dots"></span><span class="lg-read">${p.read}m</span></span>
+          <span class="lg-tags">${p.tags.slice(0, 4).join(" · ")}</span>
+        </a></li>`,
+        )
+        .join("");
+    }
+
+    function show(q: string) {
+      if (!results || !cols || !empty) return;
+      if (!q) {
+        results.innerHTML = "";
+        cols.style.display = "none";
+        empty.textContent = "";
+        return;
+      }
+      const found = fuse.search(q).slice(0, 12);
+      if (!found.length) {
+        results.innerHTML = "";
+        cols.style.display = "none";
+        empty.textContent = "no matching entries.";
+        return;
+      }
+      empty.textContent = "";
+      cols.style.display = "";
+      results.innerHTML = rowsHtml(found);
+    }
+
+    input?.addEventListener("input", (e) =>
+      show((e.target as HTMLInputElement).value.trim()),
+    );
+  </script>
 </Base>
