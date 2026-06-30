@@ -84,7 +84,9 @@ const clip = (s: string, n: number) =>
           label.textContent = "copied!";
           setTimeout(() => (label.textContent = "email"), 2000);
         }
-      } catch {}
+      } catch {
+        // ignore: clipboard may be blocked
+      }
     });
   </script>
 </Base>

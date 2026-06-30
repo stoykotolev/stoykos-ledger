@@ -123,7 +123,9 @@ const year = new Date().getFullYear();
         root.dataset.theme = t;
         try {
           localStorage.setItem("ledger-theme", t);
-        } catch {}
+        } catch {
+          // ignore: storage may be unavailable (private mode, etc.)
+        }
         btns.forEach((b) =>
           b.classList.toggle("is-active", b.dataset.theme === t),
         );

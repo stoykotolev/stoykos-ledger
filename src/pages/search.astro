@@ -52,9 +52,20 @@ const dataJson = JSON.stringify(posts).replace(/</g, "\\u003c");
   <script>
     import Fuse from "fuse.js";
 
+    type Entry = {
+      slug: string;
+      id: string;
+      title: string;
+      description: string;
+      tags: string[];
+      date: string;
+      read: number;
+      body: string;
+    };
+
     const dataEl = document.getElementById("search-data");
-    const posts = JSON.parse(dataEl?.textContent || "[]");
-    const fuse = new Fuse(posts, {
+    const posts: Entry[] = JSON.parse(dataEl?.textContent || "[]");
+    const fuse = new Fuse<Entry>(posts, {
       keys: ["title", "description", "tags", "body"],
       threshold: 0.4,
       minMatchCharLength: 2,
@@ -68,7 +79,7 @@ const dataJson = JSON.stringify(posts).replace(/</g, "\\u003c");
     const clip = (s: string, n: number) =>
       s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s;
 
-    function rowsHtml(items: any[]) {
+    function rowsHtml(items: { item: Entry }[]) {
       return items
         .map(
           ({ item: p }) => `
