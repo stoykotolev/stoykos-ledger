@@ -117,8 +117,8 @@ const year = new Date().getFullYear();
     <script>
       const root = document.documentElement;
       const valid = ["slate", "teal", "amber"];
-      const btns = Array.from(document.querySelectorAll(".lg-theme"));
-      function setTheme(t) {
+      const btns = Array.from(document.querySelectorAll<HTMLElement>(".lg-theme"));
+      function setTheme(t: string) {
         if (!valid.includes(t)) t = "slate";
         root.dataset.theme = t;
         try {
@@ -131,7 +131,7 @@ const year = new Date().getFullYear();
         );
       }
       btns.forEach((b) =>
-        b.addEventListener("click", () => setTheme(b.dataset.theme)),
+        b.addEventListener("click", () => setTheme(b.dataset.theme ?? "slate")),
       );
       setTheme(localStorage.getItem("ledger-theme") || root.dataset.theme || "slate");
     </script>
