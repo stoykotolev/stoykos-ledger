@@ -16,7 +16,7 @@ const id = (title.match(/(\d+)/)?.[1] ?? "0").padStart(4, "0");
 const iso = date.toISOString().slice(0, 10);
 ---
 
-<Base title={title} description={description}>
+<Base title={`#${id} — ${description}`} description={description}>
   <article>
     <header class="lg-entry-head">
       <div class="lg-entry-id">
