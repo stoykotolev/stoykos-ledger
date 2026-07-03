@@ -539,6 +539,15 @@ button:focus-visible {
 .lg-toc a:hover {
 	color: var(--accent-bright);
 }
+.lg-entry-hero {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 0 0 2rem;
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	background: var(--bg-soft);
+}
 .lg-entry-foot {
 	margin-top: 3rem;
 	padding-top: 1.5rem;

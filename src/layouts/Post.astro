@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Base from "./Base.astro";
 import type { CollectionEntry } from "astro:content";
 import { readingTime } from "../lib/utils";
@@ -8,15 +9,18 @@ type Props = {
 };
 
 const { post } = Astro.props;
-const { title, description, date, tags } = post.data;
+const { title, description, date, tags, heroImage, heroImageAlt } = post.data;
 const { Content, headings } = await post.render();
 
 const toc = headings.filter((h) => h.depth <= 3);
 const id = (title.match(/(\d+)/)?.[1] ?? "0").padStart(4, "0");
 const iso = date.toISOString().slice(0, 10);
+const ogImage = heroImage
+  ? new URL(heroImage.src, Astro.site).toString()
+  : undefined;
 ---
 
-<Base title={`#${id} — ${description}`} description={description}>
+<Base title={`#${id} — ${description}`} description={description} ogImage={ogImage}>
   <article>
     <header class="lg-entry-head">
       <div class="lg-entry-id">
@@ -37,6 +41,18 @@ const iso = date.toISOString().slice(0, 10);
         }
       </p>
     </header>
+
+    {
+      heroImage && (
+        <Image
+          class="lg-entry-hero"
+          src={heroImage}
+          alt={heroImageAlt ?? ""}
+          widths={[480, 768, heroImage.width]}
+          sizes="(min-width: 68ch) 68ch, 100vw"
+        />
+      )
+    }
 
     {
       toc.length > 2 && (
