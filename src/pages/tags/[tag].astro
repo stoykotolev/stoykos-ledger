@@ -45,13 +45,13 @@ const clip = (s: string, n: number) =>
     {
       posts.map((post) => (
         <li>
-          <a href={`/blog/${post.slug}`} class="lg-line">
+          <a href={`/blog/${post.id}`} class="lg-line">
             <span class="lg-id">#{id(post.data.title)}</span>
             <span class="lg-dt">{iso(post.data.date)}</span>
             <span class="lg-main-cell">
               <span class="lg-t">{clip(post.data.description, 58)}</span>
               <span class="lg-dots" />
-              <span class="lg-read">{readingTime(post.body)}m</span>
+              <span class="lg-read">{readingTime(post.body ?? "")}m</span>
             </span>
             <span class="lg-tags">{post.data.tags.slice(0, 4).join(" · ")}</span>
           </a>

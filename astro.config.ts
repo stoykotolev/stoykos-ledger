@@ -7,7 +7,10 @@ import rehypeExternalLinks from "rehype-external-links";
 export default defineConfig({
   site: "https://stoykotolev.com",
   output: "static",
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: "compile",
+    prerenderEnvironment: "node",
+  }),
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

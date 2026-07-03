@@ -8,14 +8,14 @@ const idOf = (t: string) => (t.match(/(\d+)/)?.[1] ?? "0").padStart(4, "0");
 const posts = (await getCollection("posts", ({ data }) => !data.draft))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .map((p) => ({
-    slug: p.slug,
+    slug: p.id,
     id: idOf(p.data.title),
     title: p.data.title,
     description: p.data.description,
     tags: p.data.tags,
     date: p.data.date.toISOString().slice(0, 10),
-    read: readingTime(p.body),
-    body: p.body,
+    read: readingTime(p.body ?? ""),
+    body: p.body ?? "",
   }));
 
 // Escape "<" so the JSON island can't break out of the <script> tag.

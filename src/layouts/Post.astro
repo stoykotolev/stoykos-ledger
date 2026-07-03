@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Base from "./Base.astro";
-import type { CollectionEntry } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
 import { readingTime } from "../lib/utils";
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 
 const { post } = Astro.props;
 const { title, description, date, tags, heroImage, heroImageAlt } = post.data;
-const { Content, headings } = await post.render();
+const { Content, headings } = await render(post);
 
 const toc = headings.filter((h) => h.depth <= 3);
 const id = (title.match(/(\d+)/)?.[1] ?? "0").padStart(4, "0");
@@ -30,7 +30,7 @@ const ogImage = heroImage
       </div>
       <h1 class="lg-entry-title">{description}</h1>
       <p class="lg-entry-meta">
-        {readingTime(post.body)} min read ·{" "}
+        {readingTime(post.body ?? "")} min read ·{" "}
         {
           tags.map((t, i) => (
             <>
